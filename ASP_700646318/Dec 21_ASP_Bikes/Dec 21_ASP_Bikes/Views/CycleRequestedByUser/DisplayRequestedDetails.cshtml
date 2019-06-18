@@ -1,0 +1,54 @@
+﻿@*@model Dec_21_ASP_Bikes.Models.RequestCycle
+
+@using (Html.BeginForm("DisplayRequestedDetails", "CycleRequestedByUser", FormMethod.Post))
+{
+
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.FromDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ToDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.RequestID)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CycleID)
+			</th>
+
+
+		</tr>
+
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => Model.FromDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.ToDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.RequestID)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.CycleID)
+			</td>
+
+		</tr>
+
+
+	</table>
+
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+			<input type="submit" value="Create" class="btn btn-default" />
+		</div>
+	</div>
+}*@
+
+
+

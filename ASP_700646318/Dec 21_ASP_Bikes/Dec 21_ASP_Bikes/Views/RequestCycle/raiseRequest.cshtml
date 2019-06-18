@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Dec_21_ASP_Bikes.Models.RequestCycle>
+
+@{
+    ViewBag.Title = "raiseRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>raiseRequest</h2>
+
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CycleDetail.CycleAccessories)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CycleDetail.CycleAccessories)
+        </td>
+        
+    </tr>
+}
+
+</table>

@@ -1,0 +1,82 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+ .webgrid-table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+        .webgrid-table td, th {
+            border: 1px solid Black;
+            padding: 3px 7px 2px;
+        }
+
+    .webgrid-header {
+        background-color: #615e5e;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    .webgrid-footer {
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #C0C0C0;
+        padding: 3px 7px 2px;
+    }
+
+
+
+    /*Left Navigation pane menu bar*/
+
+    html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+.left {
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 100%;
+    background-color: lightblue;
+}
+.rest {
+    position: relative;
+    margin-left: 200px;
+    height: 100%;
+    background-color: gold;
+}
+

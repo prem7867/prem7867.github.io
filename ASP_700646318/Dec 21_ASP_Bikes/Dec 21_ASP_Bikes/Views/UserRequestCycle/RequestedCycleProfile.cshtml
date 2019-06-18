@@ -1,0 +1,52 @@
+﻿@model Dec_21_ASP_Bikes.Models.CycleRequestedByUser
+
+<div>
+    <h4>CycleRequestedByUser</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CycleDetail.CycleAccessories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CycleDetail.CycleAccessories)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestCycle.RequestID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestCycle.RequestID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registration.Fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registration.Fullname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserRequest }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

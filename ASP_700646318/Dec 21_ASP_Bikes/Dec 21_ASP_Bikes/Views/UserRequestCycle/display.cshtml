@@ -1,0 +1,47 @@
+﻿
+@model Dec_21_ASP_Bikes.Models.RegistrationAndCycleRequestedByUser
+
+        
+
+        @{
+            ViewBag.Title = "UserProfile";
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+       
+
+        <div>
+            <h4>Registration</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Fullname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Fullname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StudentID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserRequest)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserRequest)
+                </dd>
+
+
+
+
+            </dl>
+        </div>
+        
+

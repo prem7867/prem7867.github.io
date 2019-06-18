@@ -1,0 +1,95 @@
+﻿@model Dec_21_ASP_Bikes.Models.CycleRequestedByUser
+
+
+@using (Html.BeginForm("UserProfileWithCycleDetails", "CycleRequestedByUser", FormMethod.Post))
+{
+
+    <div>
+        <h4>CycleRequestedByUser</h4>
+
+       
+
+
+        
+        @if ( ViewBag.EligibleWhoNeverBorrowed != null || ViewBag.EligibleWhoReturnedPreviousOne != null)
+        {
+            <h2>@ViewBag.EligibleWhoNeverBorrowed  @ViewBag.EligibleWhoReturnedPreviousOne</h2>
+            <p> @ViewBag.link   @Html.ActionLink("Navigate to Cycle List Page", "CycleList", "CycleDetailsList")</p>
+        }
+
+
+            
+        @*@if ( ViewBag.EligibleWhoReturnedPreviousOne != null)
+        {
+            <h2>@ViewBag.EligibleWhoReturnedPreviousOne</h2>
+            <p>
+                @Html.ActionLink("Navigate to Cycle List Page", "CycleList", "CycleDetailsList")
+            </p>
+        }*@
+
+        else
+
+        { 
+
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CycleID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CycleID)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FromDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FromDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ToDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ToDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Registration.Username)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Registration.Username)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Registration.Fullname)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Registration.Fullname)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RequestID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RequestID)
+                    </dd>
+
+                </dl>
+
+
+
+            }
+
+
+
+        </div>
+        }
+
+

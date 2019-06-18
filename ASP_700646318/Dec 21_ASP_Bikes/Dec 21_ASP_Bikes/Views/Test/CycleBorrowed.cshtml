@@ -1,0 +1,97 @@
+﻿@model Dec_21_ASP_Bikes.Models.CycleRequestedByUser
+
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        <h4>CycleRequestedByUser</h4>
+
+       
+            <h2>@ViewBag.Error</h2>
+        
+
+
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CycleID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CycleID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FromDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FromDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ToDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ToDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Registration.Username)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Registration.Username)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Registration.Fullname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Registration.Fullname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RequestID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RequestID)
+                </dd>
+
+            </dl>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Return Cycle" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
+
+
+
+
+
+    </div>
+
+
+}
+
+
+
+
+
+
+
+
+
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserRequest }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+

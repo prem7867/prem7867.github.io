@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Dec_21_ASP_Bikes.Models.CycleDetail>
+
+@{
+    ViewBag.Title = "DeleteList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "List";
+    var grid = new WebGrid(source: Model, rowsPerPage: 10);
+}
+    }
+
+<h2>CycleList</h2>
+
+<style type="text/css">
+    /*Here we will add css for style webgrid*/
+    .webgrid-table {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+        .webgrid-table td, th {
+            border: 1px solid Black;
+            padding: 3px 7px 2px;
+        }
+
+    .webgrid-header {
+        background-color: #615e5e;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    .webgrid-footer {
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #C0C0C0;
+        padding: 3px 7px 2px;
+    }
+</style>
+
+
+
+<div style="font-weight:bold;">
+    Customer List
+</div>
+
+@using (Html.BeginForm("DeleteSelected", "CycleDetailsList", FormMethod.Post))
+{
+    @grid.GetHtml(
+                  tableStyle: "webgrid-table",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    rowStyle: "webgrid-row-style",
+                    columns:
+                        grid.Columns(
+
+                            @*Here I Will Add Checkbox Column*@
+                            grid.Column(format:@<text><input type="radio" name="ids" value="@item.CycleID" /></text>, header: "Select"),
+                            grid.Column("CycleID", "Cycle ID"),
+                            grid.Column("CycleType", "Type of the cycle"),
+                            grid.Column("CycleAccessories", "Accessories Used"),
+
+
+
+
+
+     grid.Column("CycleImage", "Image", format:
+    @<text>
+        <img onclick="ZoomImage('data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))')"
+             src="data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))"
+             width="77px" height="77px" alt="@item.CycleType" />
+    </text>, style: "Imagepix")))
+
+    <br />
+        <br />
+
+
+
+
+        <button class="btn btn-primary" type="submit">Delete Selected</button>
+}
+
+
+

@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BikesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BikesEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetUserDetails" ReturnType="Collection(BikesModel.GetUserDetails_Result)" />
+    <EntitySet Name="CycleDetails" EntityType="BikesModel.CycleDetail" />
+    <EntitySet Name="Registrations" EntityType="BikesModel.Registration" />
+    <EntitySet Name="RequestCycles" EntityType="BikesModel.RequestCycle" />
+    <AssociationSet Name="FK_CR" Association="BikesModel.FK_CR">
+      <End Role="CycleDetail" EntitySet="CycleDetails" />
+      <End Role="RequestCycle" EntitySet="RequestCycles" />
+    </AssociationSet>
+    <EntitySet Name="CycleRequestedByUsers" EntityType="BikesModel.CycleRequestedByUser" />
+    <AssociationSet Name="FK_CD" Association="BikesModel.FK_CD">
+      <End Role="CycleDetail" EntitySet="CycleDetails" />
+      <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RC" Association="BikesModel.FK_RC">
+      <End Role="RequestCycle" EntitySet="RequestCycles" />
+      <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SR" Association="BikesModel.FK_SR">
+      <End Role="Registration" EntitySet="Registrations" />
+      <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SRR" Association="BikesModel.FK_SRR">
+      <End Role="Registration" EntitySet="Registrations" />
+      <End Role="RequestCycle" EntitySet="RequestCycles" />
+    </AssociationSet>
+    <EntitySet Name="RegistrationAndCycleRequestedByUsers" EntityType="BikesModel.RegistrationAndCycleRequestedByUser" />
+    <AssociationSet Name="FK_SR1" Association="BikesModel.FK_SR1">
+      <End Role="Registration" EntitySet="Registrations" />
+      <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SRR1" Association="BikesModel.FK_SRR1">
+      <End Role="Registration" EntitySet="Registrations" />
+      <End Role="RequestCycle" EntitySet="RequestCycles" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="GetUserDetails_Result">
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+    <Property Type="Int64" Name="StudentID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="CycleDetail">
+    <Key>
+      <PropertyRef Name="CycleID" />
+    </Key>
+    <Property Name="CycleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CycleImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="CycleAccessories" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CycleType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="RequestCycles" Relationship="BikesModel.FK_CR" FromRole="CycleDetail" ToRole="RequestCycle" />
+    <NavigationProperty Name="CycleRequestedByUsers" Relationship="BikesModel.FK_CD" FromRole="CycleDetail" ToRole="CycleRequestedByUser" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="Fullname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StudentID" Type="Int64" Nullable="false" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="CycleRequestedByUsers" Relationship="BikesModel.FK_SR" FromRole="Registration" ToRole="CycleRequestedByUser" />
+    <NavigationProperty Name="RequestCycles" Relationship="BikesModel.FK_SRR" FromRole="Registration" ToRole="RequestCycle" />
+    <NavigationProperty Name="CycleRequestedByUsers1" Relationship="BikesModel.FK_SR1" FromRole="Registration" ToRole="CycleRequestedByUser" />
+    <NavigationProperty Name="RequestCycles1" Relationship="BikesModel.FK_SRR1" FromRole="Registration" ToRole="RequestCycle" />
+  </EntityType>
+  <EntityType Name="RequestCycle">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CycleID" Type="Int32" Nullable="false" />
+    <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="CycleDetail" Relationship="BikesModel.FK_CR" FromRole="RequestCycle" ToRole="CycleDetail" />
+    <NavigationProperty Name="CycleRequestedByUsers" Relationship="BikesModel.FK_RC" FromRole="RequestCycle" ToRole="CycleRequestedByUser" />
+    <Property Name="StudentID" Type="Int64" />
+    <NavigationProperty Name="Registration" Relationship="BikesModel.FK_SRR" FromRole="RequestCycle" ToRole="Registration" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Registration1" Relationship="BikesModel.FK_SRR1" FromRole="RequestCycle" ToRole="Registration" />
+  </EntityType>
+  <Association Name="FK_CR">
+    <End Type="BikesModel.CycleDetail" Role="CycleDetail" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="BikesModel.RequestCycle" Role="RequestCycle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CycleDetail">
+        <PropertyRef Name="CycleID" />
+      </Principal>
+      <Dependent Role="RequestCycle">
+        <PropertyRef Name="CycleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CycleRequestedByUser">
+    <Key>
+      <PropertyRef Name="UserRequest" />
+    </Key>
+    <Property Name="UserRequest" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="CycleID" Type="Int32" Nullable="false" />
+    <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="CycleDetail" Relationship="BikesModel.FK_CD" FromRole="CycleRequestedByUser" ToRole="CycleDetail" />
+    <NavigationProperty Name="RequestCycle" Relationship="BikesModel.FK_RC" FromRole="CycleRequestedByUser" ToRole="RequestCycle" />
+    <Property Name="StudentID" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Registration" Relationship="BikesModel.FK_SR" FromRole="CycleRequestedByUser" ToRole="Registration" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Registration1" Relationship="BikesModel.FK_SR1" FromRole="CycleRequestedByUser" ToRole="Registration" />
+  </EntityType>
+  <Association Name="FK_CD">
+    <End Type="BikesModel.CycleDetail" Role="CycleDetail" Multiplicity="1" />
+    <End Type="BikesModel.CycleRequestedByUser" Role="CycleRequestedByUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CycleDetail">
+        <PropertyRef Name="CycleID" />
+      </Principal>
+      <Dependent Role="CycleRequestedByUser">
+        <PropertyRef Name="CycleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RC">
+    <End Type="BikesModel.RequestCycle" Role="RequestCycle" Multiplicity="1" />
+    <End Type="BikesModel.CycleRequestedByUser" Role="CycleRequestedByUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequestCycle">
+        <PropertyRef Name="RequestID" />
+      </Principal>
+      <Dependent Role="CycleRequestedByUser">
+        <PropertyRef Name="RequestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SR">
+    <End Type="BikesModel.Registration" Role="Registration" Multiplicity="1" />
+    <End Type="BikesModel.CycleRequestedByUser" Role="CycleRequestedByUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Registration">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="CycleRequestedByUser">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SRR">
+    <End Type="BikesModel.Registration" Role="Registration" Multiplicity="0..1" />
+    <End Type="BikesModel.RequestCycle" Role="RequestCycle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Registration">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="RequestCycle">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="RegistrationAndCycleRequestedByUser">
+    <Key>
+      <PropertyRef Name="FromDate" />
+      <PropertyRef Name="ToDate" />
+      <PropertyRef Name="UserRequest" />
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="Fullname" />
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserRequest" Type="Int32" Nullable="false" />
+    <Property Name="StudentID" Type="Int64" Nullable="false" />
+    <Property Name="Fullname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_SR1">
+    <End Type="BikesModel.Registration" Role="Registration" Multiplicity="1" />
+    <End Type="BikesModel.CycleRequestedByUser" Role="CycleRequestedByUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Registration">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="CycleRequestedByUser">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SRR1">
+    <End Type="BikesModel.Registration" Role="Registration" Multiplicity="0..1" />
+    <End Type="BikesModel.RequestCycle" Role="RequestCycle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Registration">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="RequestCycle">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

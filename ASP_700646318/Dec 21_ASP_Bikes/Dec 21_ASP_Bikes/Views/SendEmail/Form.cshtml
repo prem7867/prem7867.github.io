@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Email Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Send a Reminder mail to the student</h2>
+
+
+<br />
+<br />
+
+@if (ViewBag.Error != null)
+{
+    <h2>@ViewBag.Error</h2>
+}
+else
+{
+    <h2>@ViewBag.SuccessMail</h2>
+}
+
+<div>
+    <form method="post" action="Form">
+        <span class="form-control-static">Receiver Email: </span>
+        <input class="form-control" type="text" name="ReceiverEmail" />
+
+        @*<span class="form-control-static">Subject: </span>
+        <input class="form-control" type="text" name="sub" />
+
+        <span class="form-control-static"> Message: </span>*@
+        @*<input class="form-control" type="text" name="body" />*@
+        <br />
+
+        <button class="btn btn-primary" type="submit">Send Email</button>
+        <input class="btn btn-primary"  type="button" value="Cancel"
+               onclick="javascript:document.location.href='@Url.Action("Form", "SendEmail")'" />
+    </form>
+</div>
+

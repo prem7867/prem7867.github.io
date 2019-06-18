@@ -1,0 +1,77 @@
+﻿
+@model Dec_21_ASP_Bikes.Models.RequestCycle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>CycleDetail</h4>
+    <hr />
+
+    <div style="border: solid; width: 400px;">
+        <dl class="dl-horizontal">
+            
+
+          
+
+            
+            
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RequestID)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.RequestID)
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CycleID)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.CycleID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FromDate)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.FromDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ToDate)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.ToDate)
+            </dd>
+
+        </dl>
+    </div>
+
+</div>
+<br />
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Request Cycle" class="btn btn-default" />
+    </div>
+</div>
+
+<p>
+
+    @Html.ActionLink("Back to List", "CycleList", "CycleDetailsList")
+</p>
+
+

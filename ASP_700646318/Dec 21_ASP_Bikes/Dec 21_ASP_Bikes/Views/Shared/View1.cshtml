@@ -1,0 +1,25 @@
+﻿@model Dec_21_ASP_Bikes.Models.RequestCycle
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>AddProduct</title>
+</head>
+<body>
+	<div>
+		<label>Id:</label>
+		@Html.TextBox("RID", Model.RequestID)
+		<label>Name:</label>
+		@Html.TextBox("CID", Model.CycleID)
+		<label>Description:</label>
+		@Html.TextBox("From Date", Model.FromDate)
+		<label>Quantity:</label>
+		@Html.TextBox("To Date", Model.ToDate)
+	</div>
+</body>
+</html>

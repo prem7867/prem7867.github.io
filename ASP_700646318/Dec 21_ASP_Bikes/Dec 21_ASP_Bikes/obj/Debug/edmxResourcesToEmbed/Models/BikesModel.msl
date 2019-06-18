@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BikesModelStoreContainer" CdmEntityContainer="BikesEntities">
+    <FunctionImportMapping FunctionImportName="GetUserDetails" FunctionName="BikesModel.Store.GetUserDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BikesModel.GetUserDetails_Result">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CycleDetails">
+      <EntityTypeMapping TypeName="BikesModel.CycleDetail">
+        <MappingFragment StoreEntitySet="CycleDetail">
+          <ScalarProperty Name="CycleType" ColumnName="CycleType" />
+          <ScalarProperty Name="CycleAccessories" ColumnName="CycleAccessories" />
+          <ScalarProperty Name="CycleImage" ColumnName="CycleImage" />
+          <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Registrations">
+      <EntityTypeMapping TypeName="BikesModel.Registration">
+        <MappingFragment StoreEntitySet="Registration">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestCycles">
+      <EntityTypeMapping TypeName="BikesModel.RequestCycle">
+        <MappingFragment StoreEntitySet="RequestCycle">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CycleRequestedByUsers">
+      <EntityTypeMapping TypeName="BikesModel.CycleRequestedByUser">
+        <MappingFragment StoreEntitySet="CycleRequestedByUser">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegistrationAndCycleRequestedByUsers">
+      <EntityTypeMapping TypeName="BikesModel.RegistrationAndCycleRequestedByUser">
+        <MappingFragment StoreEntitySet="RegistrationAndCycleRequestedByUser">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

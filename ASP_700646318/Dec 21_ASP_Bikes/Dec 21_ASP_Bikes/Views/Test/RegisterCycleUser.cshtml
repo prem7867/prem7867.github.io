@@ -1,0 +1,51 @@
+﻿
+
+@model Dec_21_ASP_Bikes.ViewModel.MixOfRequestCycleNUserRequestViewModel
+
+
+
+
+@{
+    ViewBag.Title = "Requested Bicycle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var grid = new WebGrid(source: Model, canPage: true);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+<h2>Details of Requested Bicycle</h2>
+<br />
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+
+{
+    @Html.AntiForgeryToken()
+
+
+    @grid.GetHtml(
+                    tableStyle: "webgrid-table",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    rowStyle: "webgrid-row-style",
+                    columns: grid.Columns(
+                        //here i will add column for serial no
+                        grid.Column(header: "Serial No", format:@<text><div>@(item.WebGrid.Rows.IndexOf(item) + 1)</div></text>),
+                        //grid.Column(columnName: "CycleAccessories", header: "Accessories"),
+                        // grid.Column(columnName: "CycleType", header: "Type"),
+                        grid.Column(columnName: "RequestID", header: "RequestID"),
+                        grid.Column(columnName: "CycleID", header: "CycleID"),
+                        grid.Column(columnName: "FromDate", header: "Start Date"),
+                        grid.Column(columnName: "ToDate", header: "End Date"),
+                    //  grid.Column(columnName: "CycleImage", header: "Image", format:
+
+                    grid.Column("", header: "Request Cycle", format: @<a href="@Url.Action("RequestName", "RequestCycle", new { id = item.CycleID })">Request Me</a>)
+
+
+                          ))
+
+
+}
+

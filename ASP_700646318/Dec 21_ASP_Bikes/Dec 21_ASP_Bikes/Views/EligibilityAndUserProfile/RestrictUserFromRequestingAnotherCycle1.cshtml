@@ -1,0 +1,127 @@
+﻿
+@model Dec_21_ASP_Bikes.Models.CycleRequestedByUser
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+
+
+
+@using (Html.BeginForm("UserProfileWithCycleDetails", "CycleRequestedByUser", FormMethod.Post))
+{
+
+    <div>
+        <h4>Eligibility Check for the Student</h4>
+
+        @if (ViewBag.Error != null)
+        {
+            <h2>@ViewBag.Error</h2>
+        }
+
+
+
+        @if (@ViewBag.EligibleUserWhoREturnedCycle != null)
+        {
+            <h2>@ViewBag.EligibleUserWhoREturnedCycle</h2>
+            <p>
+                @ViewBag.Link    @Html.ActionLink("Navigate to Cycle List Page", "CycleList", "CycleDetailsList")
+
+            </p>
+        }
+
+
+
+        @if (@ViewBag.EligibleWhoNeverBorrowed != null)
+        {
+            <h2>@ViewBag.EligibleWhoNeverBorrowed</h2>
+            <p>
+                @ViewBag.Link     @Html.ActionLink("Navigate to Cycle List Page", "CycleList", "CycleDetailsList")
+
+            </p>
+        }
+
+
+        @if (@ViewBag.UserALreadyHasBorrowed != null)
+        {
+            <h2>@ViewBag.UserALreadyHasBorrowed</h2>
+            <p>
+                @ViewBag.Link     @Html.ActionLink("Navigate to Cycle List Page", "CycleListWithOnlyViewOption", "CycleDetailsList")
+
+            </p>
+        }
+
+        @*else
+
+            {
+
+
+
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CycleID)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CycleID)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FromDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.FromDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ToDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ToDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Registration.Username)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Registration.Username)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Registration.Fullname)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Registration.Fullname)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.RequestID)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.RequestID)
+                            </dd>
+
+                        </dl>
+
+
+
+                    }*@
+
+
+
+    </div>
+}
+
+
+
+
+

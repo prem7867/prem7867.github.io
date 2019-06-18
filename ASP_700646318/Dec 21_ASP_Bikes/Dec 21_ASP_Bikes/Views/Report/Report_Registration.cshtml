@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Dec_21_ASP_Bikes.Models.Registration>
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Report_Registration";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var grid = new WebGrid(source: Model, rowsPerPage: 10);
+}
+   
+
+<h2>Details of all the registered Users</h2>
+<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Register", "Account")'">Add User</button>
+
+<br/>
+<br/>
+
+<div style="padding:10px; border:1px solid black">
+    <div>
+        <a href="@Url.Action("Report",new {id= "PDF"})" , target="_blank"> Get Report PDF</a> &nbsp; &nbsp;
+        <a href="@Url.Action("Report",new {id= "Excel"})" , target="_blank"> Get Report Excel</a> &nbsp; &nbsp;
+        <a href="@Url.Action("Report",new {id= "Word"})" , target="_blank"> Get Report Word</a> &nbsp; &nbsp;
+        <a href="@Url.Action("Report",new {id= "Image"})" , target="_blank"> Get Report Image</a> &nbsp; &nbsp;
+    </div>
+</div>
+
+
+
+<br/>
+<div style="font-weight:bold;">
+	
+</div>
+
+@using (Html.BeginForm("DeleteStudents", "Report", FormMethod.Post))
+{
+	@grid.GetHtml(
+                      tableStyle: "webgrid-table",
+                        headerStyle: "webgrid-header",
+                        footerStyle: "webgrid-footer",
+                        alternatingRowStyle: "webgrid-alternating-row",
+                        rowStyle: "webgrid-row-style",
+                        columns:
+                            grid.Columns(
+
+							@*Here I Will Add Checkbox Column*@
+							@*grid.Column(format:@<text><input type="checkbox" name="ids" value="@item.StudentID" /></text>, header: "Select"),*@
+                                grid.Column("Username", "Username"),
+                                grid.Column("Fullname", "Full Name"),
+                                grid.Column("Email", "Email ID"),
+                                grid.Column("StudentID", "Student ID")))
+
+	<br />
+		<br />
+
+		@*<button class="btn btn-primary" type="submit">Delete User</button>*@
+}		
+
+
+   
+
+<br />
+<br />
+<br />
+

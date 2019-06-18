@@ -1,0 +1,85 @@
+﻿
+@model Dec_21_ASP_Bikes.Models.CycleDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div>
+    <h2>CycleDetail</h2>
+    <hr />
+
+    <div style="border: solid; width: 400px;">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CycleImage)
+            </dt>
+
+            <dd style="border:double; width: 90px;">
+
+
+                <a href='@Url.Action("DisplayImage","Image")'>
+                    <img onclick="ZoomImage('data:image/jpg;base64,@(Convert.ToBase64String(Model.CycleImage))')"
+                         src="data:image/jpg;base64,@(Convert.ToBase64String(Model.CycleImage))"
+                         width="77px" height="77px" alt="@Model.CycleType">
+                </a>
+
+            </dd>
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CycleAccessories)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.CycleAccessories)
+            </dd>
+
+            <br />
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CycleType)
+            </dt>
+
+            <dd style="border:double; width: 90px; text-align: center">
+                @Html.DisplayFor(model => model.CycleType)
+            </dd>
+
+        </dl>
+    </div>
+
+</div>
+
+
+
+<p>
+
+    @*<h2> @Html.ActionLink("Request Cycle", "CycleList", "CycleDetails") </h2>*@
+    <br/>
+
+    <h4><a href="@Url.Action("DisplayImage", "Image", new { id = Model.CycleID })">Back to Images</a>  &nbsp; &nbsp; &nbsp;  <a href="@Url.Action("CycleList", "CycleDetailsList", new { id = Model.CycleID })">Navigate Back to Cycle Details Page</a></h4>
+     <div>
+        @Html.Partial("_CycleDetailsPartialView", Model.RequestCycles)
+       
+    </div>
+   
+
+</p>
+
+<br />
+
+@*<div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Request Cycle" class="btn btn-default" />
+        </div>
+    </div>*@
+
+
+
+
+

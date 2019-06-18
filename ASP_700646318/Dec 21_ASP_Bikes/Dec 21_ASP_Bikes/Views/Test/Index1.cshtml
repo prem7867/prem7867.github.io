@@ -1,0 +1,54 @@
+﻿@model Dec_21_ASP_Bikes.Models.RequestCycle
+
+@{
+	ViewBag.Title = "UserProfile";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test REquested Cycles</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table>
+	<tr>
+		<th></th>
+		<th>Request ID</th>
+		<th>Cycle ID</th>
+		<th>From Date</th>
+		<th>To Date</th>
+	</tr>
+
+	
+		<tr>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = Model.RequestID  }) |
+				
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.RequestID)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.CycleID)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.FromDate)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => Model.ToDate)
+			</td>
+
+			<td>
+				@Html.DisplayFor(modelItem => Model.CycleDetail.CycleType)
+			</td>
+
+
+			
+		</tr>
+	
+</table>
+
+<a href="@Url.Action("Index1", "Test", new { id = Model.RequestID })">Request Me</a>)
+
+
+

@@ -1,0 +1,68 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+
+@* IPagedList is being used instead of IEnumerable, since we are using Pagedlist *@
+
+@model IPagedList<Dec_21_ASP_Bikes.Models.CycleDetail>
+
+@{
+    ViewBag.Title = "CycleList";
+
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 7);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+
+<h2>CycleList</h2>
+
+
+
+@using (Html.BeginForm("CycleList", "CycleDetailsList", FormMethod.Get))
+{
+    <b> Search By:</b>
+    @Html.RadioButton("searchBy", "CycleAccessories") <text> Accessories </text>
+    @Html.RadioButton("searchBy", "CycleType") <text> Type </text>
+    @Html.TextBox("search") <input type="submit" value="Search" />
+}
+
+
+<br />
+
+
+<div id="content">
+    @grid.GetHtml(
+                tableStyle: "webgrid-table",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                rowStyle: "webgrid-row-style",
+                columns: grid.Columns(
+                    //here i will add column for serial no
+                    grid.Column(header: "Serial No", format:@<text><div>@(item.WebGrid.Rows.IndexOf(item) + 1)</div></text>),
+                    grid.Column(columnName: "CycleAccessories", header: "Accessories"),
+                    grid.Column(columnName: "CycleType", header: "Type"),
+                    grid.Column(columnName: "CycleID", header: "ID"),
+                    grid.Column(columnName: "CycleImage", header: "Image", format:
+                    @<text>
+                        <img onclick="ZoomImage('data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))')"
+                             src="data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))"
+                             width="77px" height="77px" alt="@item.CycleType" />
+                    </text>, style: "Imagepix"),
+                         grid.Column("", header: "Cycle Details", format: @<a href="@Url.Action("Details", "Home", new { id = item.CycleID })">Check details</a>)
+
+                      ))
+
+
+
+</div>
+
+@* Here the pagination attributes are being set. ie, *@
+@Html.PagedListPager(Model, page => Url.Action("CycleList", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+
+

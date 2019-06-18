@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Dec_21_ASP_Bikes.Models.CycleDetail>
+
+<a href="~/Views/Shared/_Layout.cshtml"></a>
+<link href="~/Content/Site.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "List of the Cycle Images";
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 4);
+    grid.Pager(WebGridPagerModes.All);
+
+
+}
+
+
+<h2>List of the Cycle Images</h2>
+
+
+
+@grid.GetHtml(
+                tableStyle: "webgrid-table",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                rowStyle: "webgrid-row-style",
+                columns: grid.Columns(
+                    grid.Column(columnName: "CycleImage", header: "Image", format:
+
+                    @<text>
+                        <img onclick="ZoomImage('data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))')"
+                             src="data:image/jpg;base64,@(Convert.ToBase64String(item.CycleImage))"
+                             width="77px" height="77px" alt="@item.CycleType" />
+                    </text>, style: "Imagepix"),
+     grid.Column("", header: "Cycle Details", format: @<a href="@Url.Action("Details", "Home", new { id = item.CycleID })">Navigate to Details Page</a>)
+        ))
+
+

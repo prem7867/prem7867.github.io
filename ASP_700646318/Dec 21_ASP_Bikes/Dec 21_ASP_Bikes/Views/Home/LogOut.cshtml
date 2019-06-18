@@ -1,0 +1,24 @@
+﻿@using (Html.BeginForm())
+{
+
+    <div>
+        <h2>Thank You</h2>
+
+        @if (ViewBag.loggedOut != null)
+        {
+            <h3>@ViewBag.loggedOut</h3>
+
+        }
+
+        else
+        {
+            <h2>@ViewBag.error</h2>
+
+        }
+
+    </div>
+
+}
+
+
+

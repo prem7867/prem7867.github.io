@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Dec_21_ASP_Bikes.Models.CycleDetail>
+
+@{
+    ViewBag.Title = "CycleDetilsPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CycleDetilsPage</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.CycleAccessories)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CycleType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.CycleAccessories)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CycleType)
+        </td>
+         <td>
+            @Html.ActionLink(item.CycleType, "raiseRequest", "RequestCycle", new { id = item.CycleID })
+            
+        </td>
+
+
+        
+    </tr>
+}
+
+</table>

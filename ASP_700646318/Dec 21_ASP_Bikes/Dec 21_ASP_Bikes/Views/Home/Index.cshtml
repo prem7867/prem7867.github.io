@@ -1,0 +1,73 @@
+﻿@*<a href="~/Views/Shared/_Layout.cshtml"></a>
+
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <p><bold><h2>Welcome User</h2></bold></p>
+    </div>
+</body>*@
+@*</html>*@
+
+
+
+    @using (Html.BeginForm())
+    {
+
+
+
+
+
+
+                <h4>Welcome to UCM's Bike Management Page</h4>
+
+
+
+                <div>
+
+
+                    @if (ViewBag.success != null)
+                {
+                        <h2>@ViewBag.success</h2>
+                        <h2>@Html.ActionLink(" Click the link to find out if " + (string)ViewBag.rueligible + "", "RestrictUserFromRequestingAnotherCycle", "EligibilityAndUserProfile")</h2>
+                    }
+
+                    else
+                    {
+                        <h2>@ViewBag.error</h2>
+
+                    }
+
+
+                    <text>
+                        Choose Red to empower your potential.
+
+                        At UCM, your professors will know you by your first name. You'll gain hands-on experience and impact the community through service-learning projects. Here, you'll have the opportunity to shape the future and make friendships that will last a lifetime.
+
+                        At UCM, you'll get more than what's in the books. You'll discover learning to a greater degree.
+                    </text>
+
+
+
+                </div>
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+

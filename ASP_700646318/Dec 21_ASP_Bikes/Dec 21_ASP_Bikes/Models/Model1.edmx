@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BikesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CycleDetail">
+          <Key>
+            <PropertyRef Name="CycleID" />
+          </Key>
+          <Property Name="CycleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CycleImage" Type="varbinary(max)" Nullable="false" />
+          <Property Name="CycleAccessories" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CycleType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CycleRequestedByUser">
+          <Key>
+            <PropertyRef Name="UserRequest" />
+          </Key>
+          <Property Name="UserRequest" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestID" Type="int" Nullable="false" />
+          <Property Name="CycleID" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CheckDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentID" Type="bigint" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="RequestCycle">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CycleID" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\RAJRY\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\DEC 21_ASP_BIKES\DEC 21_ASP_BIKES\APP_DATA\BIKES.MDF.dbo.RegistrationAndCycleRequestedByUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RegistrationAndCycleRequestedByUser">
+          <Key>
+            <PropertyRef Name="FromDate" />
+            <PropertyRef Name="ToDate" />
+            <PropertyRef Name="UserRequest" />
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="Fullname" />
+          </Key>
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="UserRequest" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CR">
+          <End Role="CycleDetail" Type="Self.CycleDetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CycleDetail">
+              <PropertyRef Name="CycleID" />
+            </Principal>
+            <Dependent Role="RequestCycle">
+              <PropertyRef Name="CycleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RC">
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="1" />
+          <End Role="CycleRequestedByUser" Type="Self.CycleRequestedByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestCycle">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="CycleRequestedByUser">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SR">
+          <End Role="Registration" Type="Self.Registration" Multiplicity="1" />
+          <End Role="CycleRequestedByUser" Type="Self.CycleRequestedByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="CycleRequestedByUser">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRR">
+          <End Role="Registration" Type="Self.Registration" Multiplicity="0..1" />
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="RequestCycle">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BikesModelStoreContainer">
+          <EntitySet Name="CycleDetail" EntityType="Self.CycleDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CycleRequestedByUser" EntityType="Self.CycleRequestedByUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestCycle" EntityType="Self.RequestCycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationAndCycleRequestedByUser" EntityType="Self.RegistrationAndCycleRequestedByUser" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RegistrationAndCycleRequestedByUser].[FromDate] AS [FromDate], 
+    [RegistrationAndCycleRequestedByUser].[ToDate] AS [ToDate], 
+    [RegistrationAndCycleRequestedByUser].[UserRequest] AS [UserRequest], 
+    [RegistrationAndCycleRequestedByUser].[Username] AS [Username], 
+    [RegistrationAndCycleRequestedByUser].[Fullname] AS [Fullname]
+    FROM [dbo].[RegistrationAndCycleRequestedByUser] AS [RegistrationAndCycleRequestedByUser]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CR" Association="Self.FK_CR">
+            <End Role="CycleDetail" EntitySet="CycleDetail" />
+            <End Role="RequestCycle" EntitySet="RequestCycle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RC" Association="Self.FK_RC">
+            <End Role="RequestCycle" EntitySet="RequestCycle" />
+            <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SR" Association="Self.FK_SR">
+            <End Role="Registration" EntitySet="Registration" />
+            <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRR" Association="Self.FK_SRR">
+            <End Role="Registration" EntitySet="Registration" />
+            <End Role="RequestCycle" EntitySet="RequestCycle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BikesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CycleDetail">
+          <Key>
+            <PropertyRef Name="CycleID" />
+          </Key>
+          <Property Name="CycleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CycleImage" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="CycleAccessories" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CycleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RequestCycles" Relationship="Self.FK_CR" FromRole="CycleDetail" ToRole="RequestCycle" />
+        </EntityType>
+        <EntityType Name="CycleRequestedByUser">
+          <Key>
+            <PropertyRef Name="UserRequest" />
+          </Key>
+          <Property Name="UserRequest" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestID" Type="Int32" Nullable="false" />
+          <Property Name="CycleID" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="RequestCycle" Relationship="Self.FK_RC" FromRole="CycleRequestedByUser" ToRole="RequestCycle" />
+          <NavigationProperty Name="Registration" Relationship="Self.FK_SR" FromRole="CycleRequestedByUser" ToRole="Registration" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CheckDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentID" Type="Int64" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CycleRequestedByUsers" Relationship="Self.FK_SR" FromRole="Registration" ToRole="CycleRequestedByUser" />
+          <NavigationProperty Name="RequestCycles" Relationship="Self.FK_SRR" FromRole="Registration" ToRole="RequestCycle" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="RequestCycle">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CycleID" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CycleDetail" Relationship="Self.FK_CR" FromRole="RequestCycle" ToRole="CycleDetail" />
+          <NavigationProperty Name="CycleRequestedByUsers" Relationship="Self.FK_RC" FromRole="RequestCycle" ToRole="CycleRequestedByUser" />
+          <NavigationProperty Name="Registration" Relationship="Self.FK_SRR" FromRole="RequestCycle" ToRole="Registration" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistrationAndCycleRequestedByUser">
+          <Key>
+            <PropertyRef Name="FromDate" />
+            <PropertyRef Name="ToDate" />
+            <PropertyRef Name="UserRequest" />
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="Fullname" />
+          </Key>
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserRequest" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CR">
+          <End Role="CycleDetail" Type="Self.CycleDetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CycleDetail">
+              <PropertyRef Name="CycleID" />
+            </Principal>
+            <Dependent Role="RequestCycle">
+              <PropertyRef Name="CycleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RC">
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="1" />
+          <End Role="CycleRequestedByUser" Type="Self.CycleRequestedByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestCycle">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="CycleRequestedByUser">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SR">
+          <End Role="Registration" Type="Self.Registration" Multiplicity="1" />
+          <End Role="CycleRequestedByUser" Type="Self.CycleRequestedByUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="CycleRequestedByUser">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SRR">
+          <End Role="Registration" Type="Self.Registration" Multiplicity="0..1" />
+          <End Role="RequestCycle" Type="Self.RequestCycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Registration">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="RequestCycle">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BikesEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CycleDetails" EntityType="Self.CycleDetail" />
+          <EntitySet Name="CycleRequestedByUsers" EntityType="Self.CycleRequestedByUser" />
+          <EntitySet Name="Registrations" EntityType="Self.Registration" />
+          <EntitySet Name="RequestCycles" EntityType="Self.RequestCycle" />
+          <EntitySet Name="RegistrationAndCycleRequestedByUsers" EntityType="Self.RegistrationAndCycleRequestedByUser" />
+          <AssociationSet Name="FK_CR" Association="Self.FK_CR">
+            <End Role="CycleDetail" EntitySet="CycleDetails" />
+            <End Role="RequestCycle" EntitySet="RequestCycles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RC" Association="Self.FK_RC">
+            <End Role="RequestCycle" EntitySet="RequestCycles" />
+            <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SR" Association="Self.FK_SR">
+            <End Role="Registration" EntitySet="Registrations" />
+            <End Role="CycleRequestedByUser" EntitySet="CycleRequestedByUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SRR" Association="Self.FK_SRR">
+            <End Role="Registration" EntitySet="Registrations" />
+            <End Role="RequestCycle" EntitySet="RequestCycles" />
+          </AssociationSet>
+          <FunctionImport Name="GetUserDetails" ReturnType="Collection(BikesModel.GetUserDetails_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetUserDetails_Result">
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+          <Property Type="Int64" Name="StudentID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BikesModelStoreContainer" CdmEntityContainer="BikesEntities1">
+          <EntitySetMapping Name="CycleDetails">
+            <EntityTypeMapping TypeName="BikesModel.CycleDetail">
+              <MappingFragment StoreEntitySet="CycleDetail">
+                <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+                <ScalarProperty Name="CycleImage" ColumnName="CycleImage" />
+                <ScalarProperty Name="CycleAccessories" ColumnName="CycleAccessories" />
+                <ScalarProperty Name="CycleType" ColumnName="CycleType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CycleRequestedByUsers">
+            <EntityTypeMapping TypeName="BikesModel.CycleRequestedByUser">
+              <MappingFragment StoreEntitySet="CycleRequestedByUser">
+                <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registrations">
+            <EntityTypeMapping TypeName="BikesModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestCycles">
+            <EntityTypeMapping TypeName="BikesModel.RequestCycle">
+              <MappingFragment StoreEntitySet="RequestCycle">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="CycleID" ColumnName="CycleID" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationAndCycleRequestedByUsers">
+            <EntityTypeMapping TypeName="BikesModel.RegistrationAndCycleRequestedByUser">
+              <MappingFragment StoreEntitySet="RegistrationAndCycleRequestedByUser">
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUserDetails" FunctionName="BikesModel.Store.GetUserDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BikesModel.GetUserDetails_Result">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

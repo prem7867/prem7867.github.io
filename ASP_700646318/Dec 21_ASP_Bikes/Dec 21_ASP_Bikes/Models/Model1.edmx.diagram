@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b8de1ef6cb5b497eb039b6e1b48ce3bb" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="BikesModel.CycleDetail" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikesModel.CycleRequestedByUser" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikesModel.Registration" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikesModel.RequestCycle" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikesModel.RegistrationAndCycleRequestedByUser" Width="1.5" PointX="1.125" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="BikesModel.FK_CR" ManuallyRouted="false" />
+        <AssociationConnector Association="BikesModel.FK_RC" ManuallyRouted="false" />
+        <AssociationConnector Association="BikesModel.FK_SR" ManuallyRouted="false" />
+        <AssociationConnector Association="BikesModel.FK_SRR" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,21 @@
+﻿
+@model Dec_21_ASP_Bikes.Models.CycleRequestedByUser
+
+@if (ViewBag.dateCrossed != null)
+{
+    <h2>@ViewBag.dateCrossed</h2>
+            <h3>@ViewBag.fineCharges</h3>
+            <h4>@ViewBag.FromAndToDetails</h4>
+}
+
+@if (ViewBag.todayDate != null)
+{
+    <h3>@ViewBag.todayDate</h3>
+}
+
+@if (ViewBag.uhaveTime != null)
+{
+    <h3>@ViewBag.uhaveTime</h3>
+
+}
+
